@@ -1,0 +1,8 @@
+{
+  "name": "phd-research",
+  "version": "0.1.0",
+  "description": "Long-haul PhD research harness for Claude Code: phase-aware agents, integrative/systematic/narrative review workflows, gap typology, adversarial review, instinct capture, file-based memory. Tool-agnostic via CONNECTORS.",
+  "author": { "name": "Arthur Amorim", "email": "arthur.amorim0211@gmail.com" },
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/arthuramorim/phd-research-harness"
+}
