@@ -26,9 +26,12 @@ researcher can lock with evidence, not vibes. Produce:
 - One descriptive paragraph per variant explaining its sweet-spot literature.
 - Two short flags (`saturation_risk`, `frontier_signal`) per variant.
 
-**Critical**: this skill DOES NOT recommend a winner. Theme-lock is a
-conscious decision by the researcher (and the real-world advisor). The
-skill's contract ends at the comparison artifact.
+**Critical**: this skill defaults to NOT picking a winner. Theme-lock is a
+conscious decision by the researcher. However, when the researcher signals
+they lack a local advisor (`researcher.advisor: TBD` in settings) OR explicitly
+asks for a recommendation, the skill engages substantively in Step 8 — citing
+empirical evidence from the sweep, naming a primary bet plus fallback, and a
+concrete next step. This is opinion, not verdict; the researcher still decides.
 
 ## Workflow
 
@@ -104,10 +107,42 @@ If fewer than 3 reviews exist, flag `review_gap` — could be opportunity
 ### Step 7 — Emit comparison artifact
 
 Write `tema-exploration/01-variant-comparison.md` with the structure shown
-in **Output format**.
+in **Output format** (comparison table + decision-support matrix, no winner).
 
 DO NOT modify `tema-exploration/00-tema-atual.md` — that file is the
 researcher's. DO NOT touch anything outside `tema-exploration/`.
+
+### Step 8 — Substantial recommendation (GATED)
+
+Engage substantively if **any** of the following triggers is true:
+
+1. `settings.local.json` `researcher.advisor` equals `"TBD"`, `""`, or missing
+2. User prompt contains: `recommend`, `recomende`, `qual escolher`, `qual sugere`,
+   `aposta`, `bet`, `which would you pick`, `me ajude a decidir`
+3. `settings.local.json` `skill.theme-refinement.substantialRecommendation: true`
+
+If gated ON:
+- Append section `## Substantial recommendation (input — not a verdict)` to the
+  comparison artifact (after the decision-support matrix, before methodological notes).
+- Contents (mandatory):
+  - **Primary bet**: `V[X]` — exact variant name
+  - **3 empirical reasons** rooted in the sweep evidence. Each reason cites a
+    specific signal (paradigm-fit %, frontier signal, saturation risk, a paper
+    title+year+citations, a concept-overlap value). No abstract reasoning.
+  - **Fallback variant**: `V[Y]` — and the *specific trigger* that would make
+    you pivot (e.g., "if `gap-hunter` returns <2 Theory Application Voids in V[X],
+    pivot to V[Y]")
+  - **Concrete next step (NOT "discuss with advisor")**: a runnable action like
+    "invoke `gap-hunter` on V[X]" or "run `methodology-advisor` with
+    `researchQuestionType: mechanism-exploring`"
+  - **Explicit framing line**: *"This is my read of the sweep. You decide. Each
+    claim above is sourced to: [paper IDs / signal values]."*
+
+If gated OFF: emit Step 7 artifact only and stop. Do not include Step 8 section.
+
+The recommendation may **NOT** be generic (e.g., "V2 looks interesting"); it
+**MUST** trace every claim to a specific data point in the sweep. A
+recommendation without traceable sources is a violation of `citation-rigor.md`.
 
 ## Output format
 
@@ -184,10 +219,12 @@ field, archival). End with: *"Sweet spot: <2-3 word characterization>."*
 ## Constraints
 
 - **No file mutation outside `tema-exploration/`.** Hard constraint.
-- **No theme recommendation.** The skill stops at the comparison artifact.
-  If the user asks "which one should I pick?", redirect: *"That's a
-  decision for you and your advisor. The table above gives the empirical
-  inputs; I won't choose for you."*
+- **Theme recommendation is GATED, not banned.** Default is no recommendation
+  (Step 7 artifact only). When Step 8 gating triggers, the skill MUST engage
+  substantively (primary bet + 3 sourced reasons + fallback + concrete next
+  step). The pre-v0.2 behavior of refusing to ever recommend even when the
+  researcher explicitly asked was over-correction of the SOUL.md principle
+  *"sparring acadêmico que tem opinião quando a evidência sustenta"*.
 - **Citation rigor** (`.claude/rules/citation-rigor.md`): every DOI in the
   output must be verified via Semantic Scholar or OpenAlex round-trip. Any
   unverified paper is marked `[DOI pending]` and listed in a footnote.
@@ -200,8 +237,15 @@ field, archival). End with: *"Sweet spot: <2-3 word characterization>."*
 
 ## Anti-patterns
 
-- **Declaring a winner.** *"V2 is the strongest"* — never. The skill
-  surfaces evidence; the researcher synthesizes.
+- **Declaring a winner WITHOUT sourcing every claim.** *"V2 is the strongest"*
+  by itself = violation. *"V2 is my bet because (a) paradigm-fit 70% vs V1's 50%,
+  (b) Capponi 2024 + Halperin 2024 signal active frontier, (c) review_gap flag
+  means contribution surface is wide"* = acceptable (Step 8 gated mode).
+- **Recommending without gate.** If no Step 8 trigger fires, refuse the
+  recommendation: *"I can recommend if you set `researcher.advisor: TBD` in
+  settings or ask explicitly. Currently neither triggered."*
+- **Generic recommendation.** *"V3 looks promising"* without citing concrete
+  signals from the sweep = violation of `citation-rigor.md`.
 - **Inventing concept categories.** Use OpenAlex's actual concept IDs;
   don't make up "behavioral economics" as a flat label.
 - **Overwriting `tema-atual.md`.** That file is the researcher's

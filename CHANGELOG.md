@@ -2,6 +2,10 @@
 
 All notable changes to this marketplace are documented here. Per-plugin changes live in `plugins/<plugin>/CHANGELOG.md`.
 
+## [0.1.1] — 2026-05-19
+
+- `phd-research` plugin bumped to v0.1.1 (fixes #1, #2, #3 in literature-scout).
+
 ## [0.1.0] — 2026-05-19
 
 - Initial release.

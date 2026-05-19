@@ -1,5 +1,25 @@
 # Changelog — phd-research plugin
 
+## [0.1.1] — 2026-05-19
+
+### Fixed
+- **literature-scout silent failure** (#1): agent now FAILS LOUD if zero
+  successful API fetches occur — returns explicit error block instead of
+  empty "Done". Prevents downstream skills (e.g. `theme-refinement`) from
+  building thin comparison tables without warning.
+- **literature-scout Semantic Scholar 429** (#3): S2 calls now sequential
+  (not parallel) with 1s sleep between requests; `mailto=` polite-pool
+  parameter applied from `researcher.contactEmail` if set; optional
+  `S2_API_KEY` env var documented for users needing throughput.
+
+### Documentation
+- **literature-scout OpenAlex query patterns** (#2): added "Query patterns"
+  section with 5 rules learned in production —
+  use `filter=title_and_abstract.search:...` (not loose `search=`),
+  `sort=relevance_score:desc` (not `cited_by_count:desc`), `concepts.id`
+  domain filter with cheat-sheet for 10 research areas, `from_publication_date`
+  filter, `mailto=` polite-pool.
+
 ## [0.1.0] — 2026-05-19
 
 ### Added
