@@ -9,7 +9,7 @@ Tool-agnostic via [CONNECTORS](./CONNECTORS.md).
 
 ```bash
 # 1. Add the marketplace
-claude /plugin marketplace add arthuramorim/phd-research-harness
+claude /plugin marketplace add arthur0211/phd-research-harness
 
 # 2. Install the plugin
 claude /plugin install phd-research

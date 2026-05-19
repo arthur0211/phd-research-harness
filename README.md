@@ -5,7 +5,7 @@ A single-plugin marketplace bundling **phd-research**, a long-haul harness for P
 ## Install
 
 ```bash
-claude /plugin marketplace add arthuramorim/phd-research-harness
+claude /plugin marketplace add arthur0211/phd-research-harness
 claude /plugin install phd-research
 ```
 
