@@ -31,7 +31,7 @@ suggests agent / skill / next step.
 | `theme`, `hypothesis`, `scope`, `tema`  | `gap-hunter` (classifies gaps in current scope)  |
 | `string`, `boolean`, `cluster`          | `slr-architect` to refine query composition      |
 | `sweep`, `search`, `busca`, `OpenAlex`  | `literature-scout`                               |
-| `WHY`, `protocol`, `delivery`           | `slr-protocol` (or `slr-entrega-1` if FGV)       |
+| `WHY`, `protocol`, `delivery`           | `slr-protocol` (or program-specific variant if applicable) |
 | `submit`, `finalize`, `review`, `revisar` | `devils-advocate` (only if phase ≥ reviewing)  |
 | `committee`, `panel`, `banca`           | `thesis-committee` (only `submitting` + cost confirm) |
 | no keyword                              | phase summary + 1 suggestion                     |

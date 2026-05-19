@@ -11,7 +11,7 @@ Then suggest one next action based on the current phase:
 
 - `exploring` → run `/phd-explore-theme` to compare variants
 - `refining` → invoke `theme-refinement` skill or move to `locking`
-- `locking` → invoke `slr-protocol` (or `slr-entrega-1` for FGV) to draft artifacts
+- `locking` → invoke `slr-protocol` (or a program-specific variant like `slr-entrega-1` if applicable) to draft artifacts
 - `reviewing` → invoke `devils-advocate` agent on draft artifacts
 - `submitting` → invoke `thesis-committee` agent (gated, requires confirmation)
 

@@ -1,6 +1,6 @@
 ---
 name: slr-protocol
-description: Generic literature review protocol skill. Tool-agnostic, program-agnostic. Produces 6 universal artifacts (why, theme, review-type, target-journal, boolean-string, bases, N-count) for any literature review delivery — integrative, systematic, scoping, narrative, or rapid. Use when the researcher needs to design or deliver a literature review and is NOT on the FGV-EAESP DPA Caldas 2026 disciplina (which uses slr-entrega-1 instead). Triggers: "literature review", "review protocol", "SLR", "systematic review setup", "integrative review setup", "scoping review setup", "build review", "review delivery", "design review protocol", "PRISMA setup".
+description: Generic literature review protocol skill. Tool-agnostic, program-agnostic. Produces 6 universal artifacts (why, theme, review-type, target-journal, boolean-string, bases, N-count) for any literature review delivery — integrative, systematic, scoping, narrative, or rapid. Default for any researcher; program-specific variants (e.g. slr-entrega-1) may override when triggered by their own description keywords. Triggers: "literature review", "review protocol", "SLR", "systematic review setup", "integrative review setup", "scoping review setup", "build review", "review delivery", "design review protocol", "PRISMA setup".
 ---
 
 # slr-protocol
@@ -9,8 +9,9 @@ Generic, reusable literature-review delivery skill. Tool-agnostic. Works for any
 program, any review type (integrative, systematic, scoping, narrative, rapid),
 any discipline. Produces six mandatory artifacts in a delivery folder.
 
-For the FGV-EAESP DPA Caldas 2026 disciplina specifically, use `slr-entrega-1`
-(which inherits this protocol and adds program-specific requirements).
+If your program has a more specific delivery skill (e.g. `slr-entrega-1` for the
+FGV-EAESP DPA Caldas 2026 disciplina), use that — it inherits this protocol and
+adds program-specific requirements. Otherwise, this skill is the default.
 
 ## When to use
 
@@ -26,7 +27,7 @@ Do NOT use this skill for:
 - Verifying a single citation (use `citation-verify`)
 - Comparing 2-5 candidate themes (use `theme-refinement` first, then this)
 - Choosing a review type in isolation (use `review-type-chooser` first)
-- FGV-EAESP DPA Caldas 2026 deliveries (use `slr-entrega-1`)
+- Deliveries that have a dedicated program-specific skill (use that skill instead)
 
 ## Goal
 
