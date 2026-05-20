@@ -1,0 +1,40 @@
+name: Validate plugin
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Syntax-check all hooks (node --check)
+        run: |
+          for f in plugins/phd-research/hooks/*.js; do
+            echo "Checking $f"
+            node --check "$f"
+          done
+
+      - name: Run plugin loader validator
+        run: node scripts/validate-plugin.js
+
+      - name: Confirm marketplace + plugin versions match
+        run: |
+          MKT=$(node -p "require('./.claude-plugin/marketplace.json').plugins[0].version")
+          PLUGIN=$(node -p "require('./plugins/phd-research/.claude-plugin/plugin.json').version")
+          if [ "$MKT" != "$PLUGIN" ]; then
+            echo "Version mismatch: marketplace=$MKT plugin=$PLUGIN"
+            exit 1
+          fi
+          echo "Versions in sync: $MKT"

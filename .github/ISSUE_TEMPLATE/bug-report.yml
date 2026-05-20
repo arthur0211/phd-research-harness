@@ -1,0 +1,47 @@
+name: Bug report (for developers / contributors)
+description: Structural bug — frontmatter, hooks, manifests, or plugin loader behavior.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction
+      description: Minimal steps that reproduce the bug.
+      placeholder: |
+        1. Clone repo
+        2. Run `node scripts/validate-plugin.js`
+        3. Observe ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected vs actual
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Plugin version (git ref or tag)
+      placeholder: "v0.1.2 / commit hash"
+
+  - type: input
+    id: node
+    attributes:
+      label: Node version
+      placeholder: "v20.11.0"
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - critical (data loss, security)
+        - high (skill or hook unusable)
+        - medium (workaround exists)
+        - low (cosmetic / docs)
+    validations:
+      required: true

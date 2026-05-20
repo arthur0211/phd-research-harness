@@ -1,0 +1,74 @@
+name: Skill feedback (something confused me or broke)
+description: Quick form for end-users (researchers, not plugin developers) to report when a skill behaved unexpectedly.
+title: "[skill-feedback] "
+labels: ["user-feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the feedback. Fill what you can — none of these fields require you to be a developer.
+        Output of `/phd-doctor` is the single most useful thing you can paste here. Run it before filing if you can.
+
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Which skill or command?
+      multiple: false
+      options:
+        - phd-bootstrap
+        - phd-doctor
+        - phd-explore-theme / theme-refinement
+        - methodology-advisor
+        - review-type-chooser
+        - citation-verify
+        - screening-workflow
+        - manual-search-protocol
+        - slr-protocol
+        - slr-entrega-1 (FGV only)
+        - research-instincts
+        - other / unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-i-did
+    attributes:
+      label: What I typed / what I expected
+      description: One sentence each is fine.
+      placeholder: |
+        I typed: /phd-explore-theme
+        I expected: a table comparing my 3 theme variants
+        What happened: it created the file but the table was empty
+    validations:
+      required: true
+
+  - type: textarea
+    id: doctor-output
+    attributes:
+      label: Output of /phd-doctor (paste verbatim)
+      description: |
+        Run `/phd-doctor` first if you can. The output diagnoses Node/files/hooks/layout and is by far the most useful info we can get.
+        Skip if /phd-doctor itself is what broke.
+      render: shell
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      description: |
+        Look at `~/.claude/plugins/phd-research/.claude-plugin/plugin.json` field `version`, or run `claude /plugin list`.
+      placeholder: "e.g. 0.1.2"
+    validations:
+      required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: Operating system
+      placeholder: "e.g. Windows 11 / macOS 14 / Ubuntu 22.04"
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Anything else
+      description: Workaround you tried, related issue numbers, screenshots — anything optional.

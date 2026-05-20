@@ -1,5 +1,32 @@
 # Changelog — phd-research plugin
 
+## [0.1.3] — 2026-05-19
+
+> **Release theme**: mechanical hardening — uninstall hygiene, contributor
+> infrastructure, CI. No skill behavior changes.
+
+### Added
+- **UNINSTALL.md** (#8): explicit list of every artifact the plugin writes
+  into a user project, with PowerShell + bash cleanup commands. Documents
+  which artifacts are work-product (NEVER auto-remove: INSTINCTS.jsonl,
+  tema-exploration/, library.bib, data/raw/) vs plugin-config (safe to
+  remove). Includes re-install path that leverages bootstrap idempotency
+  (v0.1.2+) so users can preserve hub files on reinstall.
+- **`.github/ISSUE_TEMPLATE/skill-feedback.yml`**: end-user feedback form
+  (researcher-friendly, not developer-jargon). Asks for `/phd-doctor` output
+  as the single most valuable diagnostic.
+- **`.github/ISSUE_TEMPLATE/bug-report.yml`**: developer-oriented bug
+  template with severity, repro steps, Node version, plugin version.
+- **`.github/ISSUE_TEMPLATE/config.yml`**: routes general questions to
+  Discussions; disables blank issues.
+- **`.github/workflows/validate.yml`**: GitHub Actions on push + PR runs
+  `node --check` on every hook + `scripts/validate-plugin.js` + confirms
+  marketplace.json and plugin.json version fields match. ~30s per run.
+- **`scripts/smoke-v0.1.2.md`**: manual smoke-test instructions to verify
+  /phd-doctor output format and phd-bootstrap idempotency in a fresh
+  install. (Required because the plugin can't `claude /plugin install`
+  itself recursively.)
+
 ## [0.1.2] — 2026-05-19
 
 > **Release theme**: Paula's first install survives. Single-concern release —
