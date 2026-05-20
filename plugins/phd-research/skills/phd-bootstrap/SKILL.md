@@ -112,9 +112,48 @@ Group questions in four batches. Skip any batch where ALL fields were filled by 
 
 After Batch (d), display a single CONFIRMATION SCREEN listing all answers (pre-filled + new) and ask "Proceed? (Y/n)". On `n`, loop back to whichever batch user wants to edit.
 
-### Step 4 — WRITE the six Tier-1 files
+### Step 4 — WRITE the six Tier-1 files (IDEMPOTENT)
 
 Each file is written with the user's actual data inlined. If a field is `[TBD — pending user]`, keep the marker visible (do not invent). Templates below show the structure; ALL `<<...>>` are replaced with concrete values before writing.
+
+**Idempotency contract (CRITICAL — prevents data loss on re-run after CTRL-C)**:
+
+Before EVERY file write, check existence:
+
+```
+for filename in [SOUL.md, IDENTITY.md, CLAUDE.md, STATE.md, MEMORY.md, AGENTS.md]:
+    target = ${CLAUDE_PROJECT_DIR}/<filename>
+    if exists(target):
+        ask user (via AskUserQuestion):
+          question: "<filename> already exists. What to do?"
+          options:
+            - "Skip (recommended) — keep existing, do nothing"
+            - "Overwrite — replace with the freshly-generated version"
+            - "Show diff first — see what would change before deciding"
+        default: Skip
+        log decision → bootstrap-log.md
+        if Skip: continue to next file
+        if Overwrite: write the freshly-generated content
+        if Show diff first: render diff, then ask again (Skip or Overwrite)
+    else:
+        write the freshly-generated content
+        log creation → bootstrap-log.md
+```
+
+Why this matters: if the user hit CTRL-C mid-flow on a previous run (e.g.,
+during the interactive questions in Step 3), files written before the cancel
+contain partial data. Re-running without idempotency would blow them away
+silently. With idempotency, re-running is safe — the user can pick up
+exactly where they stopped.
+
+Same idempotency contract applies to:
+- `.claude/settings.local.json` (Step 5)
+- Each file in `.claude/rules/` (Step 6)
+
+The audit trail (`bootstrap-log.md`) records: timestamp, file, action taken
+(create / skip / overwrite / show-diff-then-N), and the existing-file fingerprint
+(first 8 chars of sha256) so the user can later verify what was preserved vs
+replaced.
 
 #### `SOUL.md` (~150 lines)
 

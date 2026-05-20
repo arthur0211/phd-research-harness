@@ -1,5 +1,25 @@
 # Changelog — phd-research plugin
 
+## [0.1.2] — 2026-05-19
+
+> **Release theme**: Paula's first install survives. Single-concern release —
+> two changes that prevent the most common first-install failure modes.
+
+### Added
+- **`/phd-doctor` command + skill** (#6): self-serve diagnostic that audits
+  Node version, Tier 1 file presence, settings.local.json validity, hook
+  script syntax, plugin layout, and optional Zotero local API. Outputs
+  per-dimension `[OK]`/`[FAIL]` checklist with corrective hint per FAIL.
+  Read-only. Fast (≤5s). Persists log at `.claude/memory/doctor-log.md`.
+
+### Fixed
+- **phd-bootstrap idempotency** (#7): pre-write existence check on each Tier 1
+  file. If file exists, asks user via AskUserQuestion (Skip / Overwrite /
+  Show diff first), default Skip. Prevents silent data loss when user
+  CTRL-Cs mid-flow and re-runs `/phd-bootstrap`. Applies to all 6 Tier 1
+  files + `.claude/settings.local.json` + each rule file. Decisions logged
+  to `.claude/memory/bootstrap-log.md` with sha256 fingerprint for audit.
+
 ## [0.1.1] — 2026-05-19
 
 ### Fixed

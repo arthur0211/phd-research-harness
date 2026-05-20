@@ -1,14 +1,14 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "phd-research-harness",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "PhD research harness for Claude Code — phase-aware agents, literature review workflows (systematic/integrative/narrative), gap typology, adversarial review, file-based memory. Tool-agnostic via CONNECTORS.",
   "owner": { "name": "Arthur Amorim", "email": "arthur.amorim0211@gmail.com" },
   "plugins": [
     {
       "name": "phd-research",
       "source": "./plugins/phd-research",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "description": "10 skills (bootstrap, theme-refinement, methodology-advisor, review-type-chooser, citation-verify, screening-workflow, manual-search-protocol, slr-protocol, slr-entrega-1, research-instincts), 6 agents, 4 hooks.",
       "category": "productivity",
       "license": "Apache-2.0"
